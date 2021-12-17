@@ -10,7 +10,7 @@ void concatenar(char c, char *cadena){
   strcat(cadena, cadenaTemporal);
 }
 
-void psinfo(char const *argv[]){
+void psinfo(char *argv[]){
   int c;
   char linea[1000] = "";
   const char *s = "\r\n";
@@ -78,6 +78,6 @@ void psinfo(char const *argv[]){
   }else{printf("\t Tamaño de la memoria en la región STACK: %s\n", vmstk );}
 
   printf("Número de cambios de conexto realizados (voluntarios - no voluntarios) %s - %s\n", vcs, nvcs);
-  
+
   fclose(fptr);
 }

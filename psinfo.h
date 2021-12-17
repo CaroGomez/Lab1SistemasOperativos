@@ -10,7 +10,7 @@ void concatenar(char c, char *cadena){
   strcat(cadena, cadenaTemporal);
 }
 
-void psinfo(char const *argv[]){
+void psinfo(char *argv[]){
   int c;
   char linea[1000] = "";
   const char *s = "\r\n";
@@ -63,7 +63,7 @@ void psinfo(char const *argv[]){
     }
   }
   fclose(fptr);
-  
+
   printf("Nombre del proceso: %s\n", name );
   printf("Estado: %s\n", state );
   if(strcmp(vmSize, "")==0){

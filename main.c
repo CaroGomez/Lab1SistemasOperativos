@@ -1,15 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "psinfo.h"
+#include "lista.h"
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
   if(argc == 1){
-    printf("por favor ingrese el PID del proceso \n");
+    printf("Ha ingresado muy pocos argumentos, revise por favor y vuelva a intentarlo");
   }
   if(argc > 2){
-    printf("Se ingresaron muchos argumentos\n");
+    if (strcmp(argv[1],"-l")==0){
+      lista(argc, argv);
+    }
+  }else{
+    printf("Argumentos inválidos\n", );
   }
-  
-  psinfo(argv);
+  if (argc = 2){
+    psinfo(argv);
+  }
+
   return 0;
 }

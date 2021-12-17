@@ -94,5 +94,4 @@ printf("-- Información recolectada!!!\n");
     printf("....\n");
     aux = aux->sig;
   }
-  return 0;
 }
