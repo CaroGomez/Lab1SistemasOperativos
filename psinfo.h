@@ -62,6 +62,8 @@ void psinfo(char const *argv[]){
       finArchivo = true;
     }
   }
+  fclose(fptr);
+  
   printf("Nombre del proceso: %s\n", name );
   printf("Estado: %s\n", state );
   if(strcmp(vmSize, "")==0){
@@ -78,6 +80,4 @@ void psinfo(char const *argv[]){
   }else{printf("\t Tamaño de la memoria en la región STACK: %s\n", vmstk );}
 
   printf("Número de cambios de conexto realizados (voluntarios - no voluntarios) %s - %s\n", vcs, nvcs);
-  
-  fclose(fptr);
 }
