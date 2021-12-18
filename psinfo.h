@@ -13,15 +13,15 @@ void concatenar(char c, char *cadena){
 void psinfo(char *argv[]){
   int c;
   char linea[1000] = "";
-  const char *s = "\r\n";
+  const char s[4] = "\r\n";
   char * secondToken = "";
   char name[100] = "", state[100] = "", vmSize[100] = "", vmExe[100] = "", vmData[100] = "", vmstk[100] = "", vcs[100] = "", nvcs[100] = "";
-  FILE *fptr;
+
   bool finArchivo = false;
   char ruta[50] = "/proc/";
   strcat(ruta, argv[1]);
   strcat(ruta, "/status");
-  fptr = fopen(ruta, "r");
+  FILE *fptr = fopen(ruta, "r");
   while (finArchivo == false){
     (c = getc(fptr));
     if(c != '\n'){
@@ -60,9 +60,16 @@ void psinfo(char *argv[]){
     }
     if (c == EOF) {
       finArchivo = true;
+      memset(linea, 0, 1000);
     }
   }
   fclose(fptr);
+  fflush(stdin);
+  memset(linea, 0, 1000);
+  memset(ruta, 0, 50);
+  strcat(ruta, "/proc/");
+  finArchivo = false;
+  secondToken = "";
 
   printf("Nombre del proceso: %s\n", name );
   printf("Estado: %s\n", state );
@@ -80,4 +87,5 @@ void psinfo(char *argv[]){
   }else{printf("\t Tamaño de la memoria en la región STACK: %s\n", vmstk );}
 
   printf("Número de cambios de conexto realizados (voluntarios - no voluntarios) %s - %s\n", vcs, nvcs);
+
 }

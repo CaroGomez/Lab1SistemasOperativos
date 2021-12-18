@@ -10,24 +10,24 @@ typedef struct nodo1{
   struct nodo1 *sig;
 }proceso1;
 
-proceso1 *Listaproceso1s(proceso1 *lista){
+proceso1 *Listaprocesos(proceso1 *lista){
   lista = NULL;
   return lista;
 }
 
 proceso1 *agregarproceso1(proceso1 *lista, char *pid, char *nombre) {
-  proceso1 *nuevoproceso1, *aux;
-  nuevoproceso1 = (proceso1*)malloc(sizeof(proceso1));
-  strcpy(nuevoproceso1->pid, pid);
-  strcpy(nuevoproceso1->nombre, nombre);
+  proceso1 *nuevoproceso, *aux;
+  nuevoproceso = (proceso1*)malloc(sizeof(proceso1));
+  strcpy(nuevoproceso->pid, pid);
+  strcpy(nuevoproceso->nombre, nombre);
   if(lista == NULL) {
-    lista = nuevoproceso1;
+    lista = nuevoproceso;
   } else {
     aux = lista;
     while (aux->sig != NULL) {
       aux = aux->sig;
     }
-    aux->sig = nuevoproceso1;
+    aux->sig = nuevoproceso;
   }
   return lista;
 }
@@ -40,18 +40,17 @@ void concatena2(char c, char *cadena){
 }
 
 void generarArchivo(int argc, char *argv[]) {
-  printf("inicio");
-  proceso1 *lista = Listaproceso1s(lista), *listaAux;
+  proceso1 *lista = Listaprocesos(lista), *listaAux;
   char *processID;
   FILE *fptr;
   int c;
   bool finArchivo = false;
   char * secondToken = "";
   char * token = "";
-  char * nombreArchivoSalida = "psinfo-report-";
+  char nombreArchivoSalida[1000] = "psinfo-report-";
   char linea[1000] = "";
   const char *s = "\r\n";
-  char ruta[50] = "/proc/";
+  char ruta[100] = "/proc/";
     for(int i = 2; i<argc; i++){
       strcat(ruta, argv[i]);
       strcat(ruta, "/status");
@@ -68,7 +67,8 @@ void generarArchivo(int argc, char *argv[]) {
               listaAux = lista;
               lista = agregarproceso1(listaAux, argv[i], secondToken);
               if (i == argc - 1){
-                strcat(nombreArchivoSalida, argv[i]);
+                char *auxid = argv[i];
+                strcat(nombreArchivoSalida, auxid);
               } else {
                 strcat(nombreArchivoSalida, argv[i]);
                 strcat(nombreArchivoSalida, "-");
@@ -99,9 +99,11 @@ void generarArchivo(int argc, char *argv[]) {
     aux = lista;
     while (aux != NULL) {
       fprintf(fptr,"Pid: %s\n", aux->pid);
-      fprintf(fptr,"Nombre del proceso1: %s\n", aux->nombre);
+      fprintf(fptr,"Nombre del proceso: %s\n", aux->nombre);
       fprintf(fptr,"....\n");
       aux = aux->sig;
     }
+    printf("Archivo de salida generado: %s\n", nombreArchivoSalida);
+    free(lista);
 
 }

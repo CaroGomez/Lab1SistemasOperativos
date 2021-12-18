@@ -8,16 +8,16 @@ typedef struct nodo1{
   char pid[100];
   char nombre[100];
   struct nodo1 *sig;
-}proceso;
+}proceso1;
 
-proceso *Listaprocesos(proceso *lista){
+proceso1 *Listaprocesos(proceso1 *lista){
   lista = NULL;
   return lista;
 }
 
-proceso *agregarproceso(proceso *lista, char *pid, char *nombre) {
-  proceso *nuevoproceso, *aux;
-  nuevoproceso = (proceso*)malloc(sizeof(proceso));
+proceso1 *agregarproceso1(proceso1 *lista, char *pid, char *nombre) {
+  proceso1 *nuevoproceso, *aux;
+  nuevoproceso = (proceso1*)malloc(sizeof(proceso1));
   strcpy(nuevoproceso->pid, pid);
   strcpy(nuevoproceso->nombre, nombre);
   if(lista == NULL) {
@@ -28,19 +28,20 @@ proceso *agregarproceso(proceso *lista, char *pid, char *nombre) {
       aux = aux->sig;
     }
     aux->sig = nuevoproceso;
+    free(nuevoProceso);
   }
   return lista;
 }
 
-void concatena(char c, char *cadena){
+void concatena2(char c, char *cadena){
   char cadenaTemporal[2];
   cadenaTemporal[0] = c;
   cadenaTemporal[1] = '\0';
   strcat(cadena, cadenaTemporal);
 }
 
-int main(int argc, char *argv[]) {
-  proceso *lista = Listaprocesos(lista), *listaAux;
+void generarArchivo(int argc, char *argv[]) {
+  proceso1 *lista = Listaprocesos(lista), *listaAux;
   char *processID;
   FILE *fptr;
   int c;
@@ -58,14 +59,14 @@ int main(int argc, char *argv[]) {
       while (finArchivo == false){
         (c = getc(fptr));
         if(c != '\n'){
-          concatena(c, linea);
+          concatena2(c, linea);
         }else{
           token = strtok(linea, ":");
           secondToken =strtok(NULL, s);
           while (token != NULL){
             if(strcmp(token, "Name")==0){
               listaAux = lista;
-              lista = agregarproceso(listaAux, argv[i], secondToken);
+              lista = agregarproceso1(listaAux, argv[i], secondToken);
               if (i == argc - 1){
                 char *auxid = argv[i];
                 strcat(nombreArchivoSalida, auxid);
@@ -95,7 +96,7 @@ int main(int argc, char *argv[]) {
 
     fptr = fopen(nombreArchivoSalida, "w");
     fprintf(fptr,"-- Información recolectada!!!\n");
-    proceso *aux;
+    proceso1 *aux;
     aux = lista;
     while (aux != NULL) {
       fprintf(fptr,"Pid: %s\n", aux->pid);
