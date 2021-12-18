@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     else if (strcmp(argv[1],"-r")==0){
       generarArchivo(argc, argv);
     }else{
-      printf("El parámetro ingresado no es correcto\n");
+      printf("El parámetro ingresado no es correcto\n Los parámetros permitidos son -l y -r");
     }
   }else if (argc = 2){
     psinfo(argv);
